@@ -261,6 +261,7 @@ class screen_server:
 
 
     def log_out(self, root):
+        print("number of clients:    ", len(self.s.getallclients()))
         for i in range(len(self.s.getallclients())):
             self.s.getallclients()[i].sendall(str.encode('server closed the game'))
         print("quit program 0")
@@ -302,7 +303,7 @@ class screen_server:
 
         root.title("TRIVI Game - Main Window - Server")
         root.geometry("1000x700")
-        bg = tk.PhotoImage(file="bg_pic.png")
+        bg = tk.PhotoImage(file="bg_pic_new.png")
         label_bg = tk.Label(root, image=bg)
         label_bg.place(x=0, y=0)
 

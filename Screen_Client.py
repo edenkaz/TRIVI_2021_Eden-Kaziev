@@ -128,6 +128,7 @@ class screen_client:
                 self.list_w.append(btn4)
 
                 self.start_time = time.perf_counter()
+                self.end_time = 0.0
 
                 # creating the clock
                 clock = clock_try.clock_try(self.root)
@@ -718,7 +719,7 @@ class screen_client:
 
         self.root.title("TRIVI Game - Main Window - Player")
         self.root.geometry("1000x700")
-        bg = tk.PhotoImage(file="bg_pic.png")
+        bg = tk.PhotoImage(file="bg_pic_new.png")
         label_bg = tk.Label(self.root, image=bg)
         label_bg.place(x=0, y=0)
 
