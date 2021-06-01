@@ -113,6 +113,7 @@ class screen_server:
             print(self.list_all_names)
             for name in self.list_all_names:
                 self.users.cahnge_user_position(name)
+                self.users.reset_score(name)
 
             start = tk.Button(root, text="NEXT", font=('Arial Black', 16),
                               fg="Sienna", command=lambda:self.start(root, self.s, tk, self.list_w,

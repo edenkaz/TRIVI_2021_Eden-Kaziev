@@ -174,20 +174,40 @@ class Users:
         conn.commit()
         print('updated')
 
-    def change_user_position_start(self, username):
+    def change_position_for_all(self):
         """
-        This function changes the user's position at the beginning of the game from 0 to 1
-        :param username: User's username
+        This function changes the positions of users in database every time server starts
         """
         conn = sqlite3.connect('database_users.db')
-        conn.execute('update users set in_the_game = ? where username = ?', (1, username))
-        conn.commit()
-        print('updated')
+        print("Opened database successfully")
+        str1 = "select * from users;"
+        print(str1)
+        cursor = conn.execute(str1)
+        list_of_usernames = []
+        for row in cursor:
+            list_of_usernames.append(row[0])
+
+        for username in list_of_usernames:
+            self.cahnge_user_position(username)
+
+        print("all users database was updated")
+        conn.close()
+
+
+    def change_user_position_start(self, username):
+            """
+            This function changes the user's position at the beginning of the game from 0 to 1
+            :param username: User's username
+            """
+            conn = sqlite3.connect('database_users.db')
+            conn.execute('update users set in_the_game = ? where username = ?', (1, username))
+            conn.commit()
+            print('updated')
 
 
     def sort_score(self):
         """
-        This function stores the players scores after everu question
+        This function stores the players scores after every question
         :return: Sorted List of players and their scores
         """
         conn = sqlite3.connect('database_users.db')
@@ -250,7 +270,5 @@ class Users:
 
 
 # u = Users()
-# u.print_table()
-# u.get_users_position('eden')
-# print('------------------------------------------------')
-# u.print_table()
+# u.change_user_position_start('eden')
+# u.cahnge_user_position('eden')

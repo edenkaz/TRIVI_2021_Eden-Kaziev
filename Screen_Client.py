@@ -305,6 +305,20 @@ class screen_client:
         This function handles the communication betweeen the client and the server until game starts
         :param reply: The reply from the server
         """
+        if not self.is_empty():
+            self.removing_widget()
+        waiting_label = tk.Label(self.root, text="Waiting for server", font=('Arial Black', 20), fg="Sienna",
+                                bg='white')
+        waiting_label.place(x=150, y=200)
+        self.list_w.append(waiting_label)
+
+        pos = self.serversocket.recv(1024).decode()
+        while pos == None:
+            pos = self.serversocket.recv(1024).decode()
+        print('returns:      ', pos)
+        reply += pos
+
+
         if reply == 'try again':
             showinfo("MESSAGE", "Wrong code Please sign in again")
             self.sign_in()
@@ -363,6 +377,13 @@ class screen_client:
         This function handles the communication betweeen the client and the server until game starts
         :param answer: The answer from the server
         """
+        if not self.is_empty():
+            self.removing_widget()
+        waiting_label = tk.Label(self.root, text="Waiting for server", font=('Arial Black', 20), fg="Sienna",
+                                bg='white')
+        waiting_label.place(x=150, y=200)
+        self.list_w.append(waiting_label)
+
         pos = self.serversocket.recv(1024).decode()
         while pos == None:
             pos = self.serversocket.recv(1024).decode()
@@ -375,6 +396,10 @@ class screen_client:
         if answer == 'email':
             print('wrong email')
             showinfo("MESSAGE", "This email exists Try again")
+            self.sign_up()
+        if answer == 'usernameemail':
+            print('wrong username and email')
+            showinfo("MESSAGE", "This users details are already exists Try again")
             self.sign_up()
 
         else:
@@ -459,7 +484,7 @@ class screen_client:
         number_code = code
         self.serversocket.send(str.encode(number_code))
         reply = ""
-        connection = threading.Thread(target=self.message_for_new, args=(reply,), daemon=True)
+        connection = threading.Thread(target=self.message_for_exist, args=(reply,), daemon=True)
         connection.start()
 
 

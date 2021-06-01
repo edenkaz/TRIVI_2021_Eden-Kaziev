@@ -62,7 +62,7 @@ class Server(object):
                 print(self.count)
                 self.handleClient(clientSocket, self.count)
         except socket.error as e:
-            print('something went wrong in starting the server')
+            print('TRIVI can not be played with no players')
             #print(e)
 
     def handleClient(self, clientSock, current):
